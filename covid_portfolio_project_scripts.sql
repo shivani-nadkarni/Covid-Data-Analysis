@@ -201,3 +201,55 @@ AS
 	WHERE
 		deaths.continent IS NOT NULL
 
+-- queries for visualisations
+
+-- 1..
+
+SELECT 
+	SUM(new_cases) AS totalCases, SUM(CAST(new_deaths AS INT)) AS totalDeaths, (SUM(CAST(new_deaths AS INT))/SUM(new_cases))*100 as DeathPercentage
+FROM
+	PortfolioProject..CovidDeaths
+WHERE
+	continent IS NOT NULL
+ORDER BY 
+	1, 2;
+
+-- 2..
+
+SELECT 
+	location, SUM(CAST(new_deaths AS INT)) AS TotalDeathCount
+FROM
+	PortfolioProject..CovidDeaths
+WHERE
+	continent IS NULL
+	AND location not in ('World', 'European Union', 'International')
+GROUP BY 
+	location
+ORDER BY
+	TotalDeathCount DESC
+
+-- 3..
+
+SELECT
+	location, population, MAX(total_cases) as highestInfectionCount, MAX((total_cases/population)*100) as infectedPercentage
+FROM
+	PortfolioProject..CovidDeaths
+WHERE
+	continent IS NOT NULL
+GROUP BY
+	location, population
+ORDER BY
+	infectedPercentage DESC;
+
+-- 4 ..
+
+SELECT
+	location, population, date, MAX(total_cases) as highestInfectionCount, MAX((total_cases/population)*100) as infectedPercentage
+FROM
+	PortfolioProject..CovidDeaths
+WHERE
+	continent IS NOT NULL
+GROUP BY
+	location, population, date
+ORDER BY
+	infectedPercentage DESC;
