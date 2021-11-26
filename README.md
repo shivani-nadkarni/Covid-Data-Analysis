@@ -25,5 +25,8 @@ It collates data on COVID 19 cases(daily/cumulative), vaccinations, deaths, amon
 * MS Excel
 * SQL Server Management Studio
 
+### Author
+Shivani Nadkarni 
+
 
 
